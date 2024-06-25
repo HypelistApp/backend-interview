@@ -4,8 +4,26 @@ export type User = {
   email: string;
 };
 
+const temporaryUsers: Array<User> = [
+  {
+    id: 1,
+    username: 'u1',
+    email: 'u1@u.email',
+  },
+  {
+    id: 2,
+    username: 'u2',
+    email: 'u2@u.email',
+  },
+  {
+    id: 3,
+    username: 'u3',
+    email: 'u3@u.email',
+  },
+]
+
 // This is a mock database interface. Replace with actual database code as needed.
-const users: User[] = [];
+const users: User[] = temporaryUsers;
 
 const getUserById = async (id: number): Promise<User | undefined> => {
   return users.find((user) => user.id === id);
