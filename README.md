@@ -1,9 +1,5 @@
 # backend-interview
 
-# Run the Server
+This is a basic API that can create and fetch users from a mock DB.
 
-Compile TypeScript:
-`npx tsc`
-
-Start the Server:
-`npx ts-node src/server.ts`
+Can you implement a search route which can return any users with a username that is a substring of a search team query parameter?
