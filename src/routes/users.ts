@@ -1,14 +1,26 @@
 import express from "express";
 import db, { User } from "../db/db";
 import validateUser from "../validate/validateUser";
-import asyncHandler from "../middleware/asyncHandler";
+import asyncErrorHandler from "../middleware/asyncErrorHandler";
 
 const router = express.Router();
+
+interface CreateUserRequest {
+  username: string;
+  email: string;
+  password: string;
+}
+
+interface CreateUserResponse {
+  id: number;
+  username: string;
+  email: string;
+}
 
 // Get user by ID
 router.get(
   "/user/:id",
-  asyncHandler(async (req: express.Request, res: express.Response) => {
+  asyncErrorHandler(async (req: express.Request, res: express.Response) => {
     const user: User | undefined = await db.getUserById(
       parseInt(req.params.id, 10)
     );
@@ -22,19 +34,7 @@ router.get(
 // Create new user
 router.post(
   "/user",
-  asyncHandler(async (req: express.Request, res: express.Response) => {
-    interface CreateUserRequest {
-      username: string;
-      email: string;
-      password: string;
-    }
-
-    interface CreateUserResponse {
-      id: number;
-      username: string;
-      email: string;
-    }
-
+  asyncErrorHandler(async (req: express.Request, res: express.Response) => {
     const { error } = validateUser(req.body as CreateUserRequest);
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
